@@ -104,60 +104,54 @@ export const App = () => {
   }));
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div>
-          <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-              <Toolbar>
-                <div>
-                  <Button
-                    onClick={toggleDrawer(true)}
-                    color="inherit"
-                    startIcon={<ViewSidebarIcon />}
-                  ></Button>
-                  <Drawer open={open} onClose={toggleDrawer(false)}>
-                    {DrawerList}
-                  </Drawer>
-                </div>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  掲示板
-                </Typography>
-                <Button
-                  onClick={() => {
-                    alert("clicked");
-                  }}
-                  variant="text"
-                  color="inherit"
-                  startIcon={<AddIcon />}
-                >
-                  スレッドを立てる
-                </Button>
-              </Toolbar>
-            </AppBar>
-          </Box>
-          <Box sx={{ bgcolor: "secondary.main", p: 10, minHeight: "100vh" }}>
-            <Container maxWidth="sm">
-              <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                新着スレッド
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Button
+              onClick={toggleDrawer(true)}
+              color="inherit"
+              startIcon={<ViewSidebarIcon />}
+            ></Button>
+            <Drawer open={open} onClose={toggleDrawer(false)}>
+              {DrawerList}
+            </Drawer>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              掲示板
+            </Typography>
+            <Button
+              onClick={() => {
+                alert("clicked");
+              }}
+              variant="text"
+              color="inherit"
+              startIcon={<AddIcon />}
+            >
+              スレッドを立てる
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Box sx={{ bgcolor: "secondary.main", p: 10, minHeight: "100vh" }}>
+        <Container maxWidth="sm">
+          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+            新着スレッド
+          </Typography>
+          {threadData.map((threadData) => (
+            <Box sx={{ height: 40, backgroundColor: "white" }}>
+              <Typography key={threadData.id}>
+                <Grid container spacing={0}>
+                  <Grid item xs={12}>
+                    <Item>{threadData.title}</Item>
+                  </Grid>
+                </Grid>
               </Typography>
-              {threadData.map((threadData) => (
-                <Box sx={{ height: 40, backgroundColor: "white" }}>
-                  <div key={threadData.id}>
-                    <Grid container spacing={0}>
-                      <Grid item xs={12}>
-                        <Item>{threadData.title}</Item>
-                      </Grid>
-                    </Grid>
-                  </div>
-                </Box>
-              ))}
-            </Container>
-          </Box>
-        </div>
-      </ThemeProvider>
-    </>
+            </Box>
+          ))}
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 };
 export default App;
