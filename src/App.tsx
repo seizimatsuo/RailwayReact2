@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Container, Typography, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import NewThreadsPost from "./NewThreadsPost.tsx";
 import NotFound from "./NotFound.tsx";
+import axios from "axios";
 
 export const App = () => {
   const [threadData, setThreadData] = useState<{ id: string; title: string }[]>(
@@ -12,42 +13,40 @@ export const App = () => {
   );
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          "https://railway.bulletinboard.techtrain.dev/threads?offset=0"
-        );
-        const data = await response.json();
-        setThreadData(data);
-      } catch (error) {
+    axios
+      .get("https://railway.bulletinboard.techtrain.dev/threads?offset=0")
+      .then((response) => {
+        setThreadData(response.data);
+      })
+      .catch((error) => {
         console.error("取得できません", error);
-      }
-    };
-    getData();
+      });
   }, []);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: "center",
+    backgroundColor: "#fff",
   }));
 
   const Thread = () => (
     <Container maxWidth="sm">
-      <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+      <Typography variant="h5" component="div" sx={{ flexGrow: 1, mb: 2 }}>
         新着スレッド
       </Typography>
-      {threadData.map((threadData) => (
-        <Box sx={{ height: 40, backgroundColor: "white" }}>
-          <Typography key={threadData.id}>
-            <Grid container spacing={0}>
-              <Grid item xs={12}>
-                <Item>{threadData.title}</Item>
-              </Grid>
-            </Grid>
-          </Typography>
-        </Box>
-      ))}
+      <Box
+        sx={{ backgroundColor: "white", borderRadius: 1, overflow: "hidden" }}
+      >
+        {threadData.map((thread) => (
+          <Item
+            key={thread.id}
+            sx={{ height: 45, borderBottom: "1px solid #ddd" }}
+          >
+            {thread.title}
+          </Item>
+        ))}
+      </Box>
     </Container>
   );
 
@@ -56,7 +55,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Thread />} />
-          <Route path={"/threads/new"} element={<NewThreadsPost />} />
+          <Route path="/threads/new" element={<NewThreadsPost />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
