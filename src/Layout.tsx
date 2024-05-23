@@ -18,8 +18,7 @@ import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreateIcon from "@mui/icons-material/Create";
 import ListIcon from "@mui/icons-material/List";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
+import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 
@@ -75,15 +74,7 @@ const Layout = () => {
         <CustomLink to="/*">
           <ListItemButton>
             <ListItemIcon>
-              <BarChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="おまけ" />
-          </ListItemButton>
-        </CustomLink>
-        <CustomLink to="/*">
-          <ListItemButton component="a" href="/">
-            <ListItemIcon>
-              <LayersIcon />
+              <NotificationImportantIcon />
             </ListItemIcon>
             <ListItemText primary="おまけ" />
           </ListItemButton>
