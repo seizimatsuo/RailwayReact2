@@ -12,7 +12,7 @@ export const App = () => {
     []
   );
 
-  useEffect(() => {
+  const fetchThreads = () => {
     axios
       .get("https://railway.bulletinboard.techtrain.dev/threads?offset=0")
       .then((response) => {
@@ -21,6 +21,10 @@ export const App = () => {
       .catch((error) => {
         console.error("取得できません", error);
       });
+  };
+
+  useEffect(() => {
+    fetchThreads();
   }, []);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -55,7 +59,10 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Thread />} />
-          <Route path="/threads/new" element={<NewThreadsPost />} />
+          <Route
+            path="/threads/new"
+            element={<NewThreadsPost fetchThreads={fetchThreads} />}
+          />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>

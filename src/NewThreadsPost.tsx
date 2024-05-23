@@ -9,7 +9,11 @@ import HouseSidingIcon from "@mui/icons-material/HouseSiding";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const NewThreadsPost = () => {
+interface ThreadsProps {
+  fetchThreads: () => void; // fetchThreads 関数の型を明示的に指定
+}
+
+const NewThreadsPost = ({ fetchThreads }: ThreadsProps) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
@@ -23,7 +27,7 @@ const NewThreadsPost = () => {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (title.trim() === "") {
-      setError("スレッドタイトルを入力してください");
+      setError("タイトルを入力してください");
     } else {
       setError("");
       threadPost(title);
@@ -37,6 +41,7 @@ const NewThreadsPost = () => {
       })
       .then((res) => {
         console.log(res);
+        fetchThreads();
       })
       .catch((error) => {
         console.log(error);
