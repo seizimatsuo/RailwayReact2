@@ -3,6 +3,8 @@ import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout.tsx";
+import NewThreadsPost from "./NewThreadsPost.tsx";
+import NotFound from "./NotFound.tsx";
 
 export const App = () => {
   const [threadData, setThreadData] = useState<{ id: string; title: string }[]>(
@@ -54,6 +56,8 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Thread />} />
+          <Route path={"/threads/new"} element={<NewThreadsPost />} />
+          <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

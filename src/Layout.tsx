@@ -20,6 +20,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import ListIcon from "@mui/icons-material/List";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
+import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 const Layout = () => {
   const [open, setOpen] = useState(false);
@@ -28,39 +30,64 @@ const Layout = () => {
     setOpen(newOpen);
   };
 
+  const CustomLink = styled(Link)({
+    color: "inherit",
+    textDecoration: "none",
+    "&:hover": {
+      color: "inherit",
+      textDecoration: "none",
+    },
+    "&:focus": {
+      color: "inherit",
+      textDecoration: "none",
+    },
+    "&:active": {
+      color: "inherit",
+      textDecoration: "none",
+    },
+  });
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List component="nav">
-        <ListItemButton component="a" href="/">
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <CreateIcon />
-          </ListItemIcon>
-          <ListItemText primary="hoge" />
-        </ListItemButton>
+        <CustomLink to="/">
+          <ListItemButton>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </CustomLink>
+        <CustomLink to="/threads/new">
+          <ListItemButton>
+            <ListItemIcon>
+              <CreateIcon />
+            </ListItemIcon>
+            <ListItemText primary="スレッド作成" />
+          </ListItemButton>
+        </CustomLink>
         <ListItemButton>
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
           <ListItemText primary="hogehoge" />
         </ListItemButton>
-        <ListItemButton component="a" href="/">
-          <ListItemIcon>
-            <BarChartIcon />
-          </ListItemIcon>
-          <ListItemText primary="おまけ" />
-        </ListItemButton>
-        <ListItemButton component="a" href="/">
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="おまけ" />
-        </ListItemButton>
+        <CustomLink to="/*">
+          <ListItemButton>
+            <ListItemIcon>
+              <BarChartIcon />
+            </ListItemIcon>
+            <ListItemText primary="おまけ" />
+          </ListItemButton>
+        </CustomLink>
+        <CustomLink to="/*">
+          <ListItemButton component="a" href="/">
+            <ListItemIcon>
+              <LayersIcon />
+            </ListItemIcon>
+            <ListItemText primary="おまけ" />
+          </ListItemButton>
+        </CustomLink>
       </List>
     </Box>
   );
@@ -71,7 +98,7 @@ const Layout = () => {
         main: "#26a69a",
       },
       secondary: {
-        main: grey[400],
+        main: grey[300],
       },
     },
   });
@@ -93,16 +120,11 @@ const Layout = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               掲示板
             </Typography>
-            <Button
-              onClick={() => {
-                alert("clicked");
-              }}
-              variant="text"
-              color="inherit"
-              startIcon={<AddIcon />}
-            >
-              スレッドを立てる
-            </Button>
+            <CustomLink to="/threads/new">
+              <Button variant="text" color="inherit" startIcon={<AddIcon />}>
+                スレッドを立てる
+              </Button>
+            </CustomLink>
           </Toolbar>
         </AppBar>
       </Box>
