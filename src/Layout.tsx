@@ -1,11 +1,10 @@
-import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
@@ -18,17 +17,20 @@ import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreateIcon from "@mui/icons-material/Create";
 import ListIcon from "@mui/icons-material/List";
+import AddIcon from "@mui/icons-material/Add";
 import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
+import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { styled } from "@mui/material/styles";
 
 const Layout = () => {
   const [open, setOpen] = useState(false);
 
+  //Drawerの開閉
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
+  //リンクの色の設定
   const CustomLink = styled(Link)({
     color: "inherit",
     textDecoration: "none",
@@ -46,6 +48,7 @@ const Layout = () => {
     },
   });
 
+  //サイドバー
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List component="nav">
@@ -54,7 +57,7 @@ const Layout = () => {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="一覧" />
           </ListItemButton>
         </CustomLink>
         <CustomLink to="/threads/new">
@@ -62,27 +65,30 @@ const Layout = () => {
             <ListItemIcon>
               <CreateIcon />
             </ListItemIcon>
-            <ListItemText primary="スレッド作成" />
+            <ListItemText primary="作成" />
           </ListItemButton>
         </CustomLink>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListIcon />
-          </ListItemIcon>
-          <ListItemText primary="hogehoge" />
-        </ListItemButton>
+        <CustomLink to="/*">
+          <ListItemButton>
+            <ListItemIcon>
+              <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary="hoge" />
+          </ListItemButton>
+        </CustomLink>
         <CustomLink to="/*">
           <ListItemButton>
             <ListItemIcon>
               <NotificationImportantIcon />
             </ListItemIcon>
-            <ListItemText primary="おまけ" />
+            <ListItemText primary="hogehoge" />
           </ListItemButton>
         </CustomLink>
       </List>
     </Box>
   );
 
+  //色の設定
   const theme = createTheme({
     palette: {
       primary: {
@@ -94,6 +100,8 @@ const Layout = () => {
     },
   });
 
+  //共通部分の作成
+  //Outletの部分が置き換わる
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
