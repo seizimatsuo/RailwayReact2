@@ -9,21 +9,25 @@ import HouseSidingIcon from "@mui/icons-material/HouseSiding";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-interface ThreadsProps {
-  fetchThreads: () => void; // fetchThreads 関数の型を明示的に指定
-}
-
-const NewThreadsPost = ({ fetchThreads }: ThreadsProps) => {
+const NewThreadsPost = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [error, setError] = useState("");
+  const [title, setTitle] = useState(""); //テキストフィールドの管理
+  const [error, setError] = useState(""); //テキストフィールドに入力されなかったときに使う
 
+  //フォームの入力が変更されたときに呼び出される
+  //"event"は"target"プロパティをもつ（今回はフォームの入力要素）
+  //"value" プロパティは現在の値
+  //この関数は値が変わるたび、値を取得して状態の更新をする
   const handleInputChange = (event: {
     target: { value: SetStateAction<string> };
   }) => {
     setTitle(event.target.value);
   };
 
+  //ページのリロードを防ぐ
+  //フォームのタイトルが空かどうか
+  //テキストフィールドに(titleを)入力している場合"threadPost"を呼び出す
+  //投稿リクエストを送信
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (title.trim() === "") {
@@ -34,6 +38,8 @@ const NewThreadsPost = ({ fetchThreads }: ThreadsProps) => {
     }
   };
 
+  //POSTするために使う
+  //データの更新を行いホーム画面に戻った際、入力した内容が表示されるようにする
   const threadPost = async (title: string) => {
     await axios
       .post("https://railway.bulletinboard.techtrain.dev/threads", {
@@ -41,7 +47,6 @@ const NewThreadsPost = ({ fetchThreads }: ThreadsProps) => {
       })
       .then((res) => {
         console.log(res);
-        fetchThreads();
       })
       .catch((error) => {
         console.log(error);
