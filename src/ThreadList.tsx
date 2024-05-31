@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Box, Container, Typography, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 export const ThreadList = () => {
   const [threadData, setThreadData] = useState<{ id: string; title: string }[]>(
@@ -35,12 +36,16 @@ export const ThreadList = () => {
       </Typography>
       <Box sx={{ backgroundColor: "white" }}>
         {threadData.map((thread) => (
-          <Item
+          <Link
+            to={`/threads/${thread.id}`}
             key={thread.id}
-            sx={{ height: 45, borderBottom: "1px solid #ddd" }}
+            style={{ textDecoration: "none" }}
+            state={{ title: thread.title }}
           >
-            {thread.title}
-          </Item>
+            <Item sx={{ height: 45, borderBottom: "1px solid #ddd" }}>
+              {thread.title}
+            </Item>
+          </Link>
         ))}
       </Box>
     </Container>
