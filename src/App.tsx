@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ThreadList from "./ThreadList.tsx";
 import Layout from "./Layout.tsx";
+import ThreadList from "./ThreadList.tsx";
 import NewThreadsPost from "./NewThreadsPost.tsx";
 import MessageList from "./MessageList.tsx";
 import NotFound from "./NotFound.tsx";

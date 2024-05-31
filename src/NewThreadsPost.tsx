@@ -1,11 +1,17 @@
-import { SetStateAction, useState } from "react";
-import { Container, Grid, Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import HouseSidingIcon from "@mui/icons-material/HouseSiding";
+import { useState } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  Box,
+  TextField,
+  Stack,
+  Button,
+} from "@mui/material";
+import {
+  CloudUpload as CloudUploadIcon,
+  HouseSiding as HouseSidingIcon,
+} from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,16 +19,6 @@ const NewThreadsPost = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState(""); //テキストフィールドの管理
   const [error, setError] = useState(""); //テキストフィールドに入力されなかったときに使う
-
-  //フォームの入力が変更されたときに呼び出される
-  //"event"は"target"プロパティをもつ（今回はフォームの入力要素）
-  //"value" プロパティは現在の値
-  //この関数は値が変わるたび、値を取得して状態の更新をする
-  const handleInputChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setTitle(event.target.value);
-  };
 
   //ページのリロードを防ぐ
   //フォームのタイトルが空かどうか
@@ -73,7 +69,7 @@ const NewThreadsPost = () => {
           label="スレッドタイトル"
           variant="outlined"
           value={title}
-          onChange={handleInputChange}
+          onChange={(e) => setTitle(e.target.value)}
           sx={{
             backgroundColor: "white",
           }}

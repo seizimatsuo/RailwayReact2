@@ -1,19 +1,29 @@
 import axios from "axios";
-import TextField from "@mui/material/TextField";
-import { useParams } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { Box } from "@mui/material";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import HouseSidingIcon from "@mui/icons-material/HouseSiding";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { TextField, Button, Box } from "@mui/material";
+import {
+  EditNote as EditNoteIcon,
+  HouseSiding as HouseSidingIcon,
+} from "@mui/icons-material";
+import { useParams, useNavigate } from "react-router-dom";
 
 const NewMessagePost = ({ getpost }) => {
   const navigate = useNavigate();
   const { thread_id } = useParams<{ thread_id: string }>();
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
-  const MessagePost = async () => {
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    if (message.trim() === "") {
+      setError("メッセージを入力してください");
+    } else {
+      setError("");
+      MessagePost(message);
+    }
+  };
+
+  const MessagePost = async (message: string) => {
     await axios
       .post(
         `https://railway.bulletinboard.techtrain.dev/threads/${thread_id}/posts`,
@@ -24,7 +34,6 @@ const NewMessagePost = ({ getpost }) => {
       .then((response) => {
         console.log(response);
         getpost();
-        setMessage("");
       })
       .catch((error) => {
         console.log(error);
@@ -33,6 +42,8 @@ const NewMessagePost = ({ getpost }) => {
 
   return (
     <Box
+      component="form"
+      onSubmit={handleSubmit}
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -43,6 +54,7 @@ const NewMessagePost = ({ getpost }) => {
         multiline
         label="投稿しよう！"
         rows={4}
+        value={message}
         onChange={(e) => setMessage(e.target.value)}
         sx={{
           bgcolor: "white",
@@ -50,8 +62,11 @@ const NewMessagePost = ({ getpost }) => {
           mr: 15,
           mt: 5,
         }}
+        error={Boolean(error)}
+        helperText={error}
       />
       <Button
+        type="submit"
         variant="contained"
         size="large"
         sx={{
@@ -60,7 +75,6 @@ const NewMessagePost = ({ getpost }) => {
           width: "350px",
           fontSize: "1.25rem",
         }}
-        onClick={MessagePost}
       >
         <EditNoteIcon sx={{ margin: 1 }} />
         作成

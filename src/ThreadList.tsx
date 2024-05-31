@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { Box, Container, Typography, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
@@ -14,10 +14,11 @@ export const ThreadList = () => {
     axios
       .get("https://railway.bulletinboard.techtrain.dev/threads?offset=0")
       .then((response) => {
+        console.log(response);
         setThreadData(response.data);
       })
       .catch((error) => {
-        console.error("取得できません", error);
+        console.log(error);
       });
   }, []);
 

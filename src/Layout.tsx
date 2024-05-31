@@ -1,26 +1,28 @@
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  Box,
+  Typography,
+  AppBar,
+  Toolbar,
+  Button,
+  CssBaseline,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import {
+  ViewSidebar as ViewSidebarIcon,
+  Dashboard as DashboardIcon,
+  Create as CreateIcon,
+  List as ListIcon,
+  Add as AddIcon,
+  NotificationImportant as NotificationImportantIcon,
+} from "@mui/icons-material";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import CreateIcon from "@mui/icons-material/Create";
-import ListIcon from "@mui/icons-material/List";
-import AddIcon from "@mui/icons-material/Add";
-import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
-import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 const Layout = () => {
   const [open, setOpen] = useState(false);

@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import NewMessagePost from "./NewMessagePost";
 import Grid from "@mui/material/Unstable_Grid2";
+import NewMessagePost from "./NewMessagePost";
+
+interface Message {
+  id: string;
+  post: string;
+}
 
 const MessageList = () => {
   const { thread_id } = useParams<{ thread_id: string }>();
-  const [messageList, setMessageList] = useState([]);
+  const [messageList, setMessageList] = useState<Message[]>([]);
   const location = useLocation();
   const { title } = location.state;
 
@@ -26,7 +30,7 @@ const MessageList = () => {
         setMessageList(response.data.posts);
       })
       .catch((error) => {
-        console.error("取得できません", error);
+        console.log(error);
       });
   };
 
