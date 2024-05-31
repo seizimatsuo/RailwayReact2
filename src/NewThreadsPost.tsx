@@ -20,7 +20,7 @@ const NewThreadsPost = () => {
   const [title, setTitle] = useState(""); //テキストフィールドの管理
   const [error, setError] = useState(""); //テキストフィールドに入力されなかったときに使う
 
-  //ページのリロードを防ぐ
+  //event.preventDefault() ページのリロードを防ぐ
   //フォームのタイトルが空かどうか
   //テキストフィールドに(titleを)入力している場合"threadPost"を呼び出す
   //投稿リクエストを送信
