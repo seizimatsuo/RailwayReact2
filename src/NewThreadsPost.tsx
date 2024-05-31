@@ -45,8 +45,8 @@ const NewThreadsPost = () => {
       .post("https://railway.bulletinboard.techtrain.dev/threads", {
         title: title,
       })
-      .then((res) => {
-        console.log(res);
+      .then((response) => {
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
