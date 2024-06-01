@@ -7,7 +7,11 @@ import {
 } from "@mui/icons-material";
 import { useParams, useNavigate } from "react-router-dom";
 
-const NewMessagePost = ({ getpost }) => {
+type GetPostProps = {
+  getpost: () => void;
+};
+
+const NewMessagePost = ({ getpost }: GetPostProps) => {
   const navigate = useNavigate();
   const { thread_id } = useParams<{ thread_id: string }>();
   const [message, setMessage] = useState("");
