@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { Container, Typography } from "@mui/material";
 
 const NotFound = () => {
